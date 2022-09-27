@@ -3,8 +3,8 @@ using System;
 
 public class Player : KinematicBody2D
 {
-	[Export] public int speed = 200;
-	private Vector2 velocity;
+	[Export] private int _speed = 200;
+
 	private	const float FLOAT_EPSILON = 20f;
 	
 	public override void _Ready()
@@ -19,7 +19,7 @@ public class Player : KinematicBody2D
 		GlobalRotation = Mathf.Atan2(lookVector.y, lookVector.x);
 		if (Input.IsActionPressed("move") && GlobalPosition.DistanceTo(mousePos) > FLOAT_EPSILON)
 		{
-			MoveAndSlide(lookVector.Normalized() * speed);
+			MoveAndSlide(lookVector.Normalized() * _speed);
 		}
 	}
 }
