@@ -7,10 +7,12 @@ public class Turret : Area2D
 {
 	[Export] private float _shootingCooldown = 1f;
 	[Export] private int _damage = 1;
+	[Export] private Color _lineColor;
+	[Export] private int _lineWidth;
+
 	private List<Enemy> _enemies = new List<Enemy>();
 	private bool _isReadyToShoot = true;
 	private Timer _shootingCooldownTimer;
-	
 	
 	public override void _Process(float del)
 	{
@@ -53,6 +55,9 @@ public class Turret : Area2D
 		_isReadyToShoot = false;
 		_shootingCooldownTimer.Start(_shootingCooldown);
 		var line = new PlayerLine();
+		line.DefaultColor = _lineColor;
+		line.Width = _lineWidth;
+
 		GetTree().Root.AddChild(line);
 		
 		var enemy = SelectEnemy();
