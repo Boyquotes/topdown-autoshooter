@@ -1,14 +1,14 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Turret.cs" type="Script" id=1]
-[ext_resource path="res://characters2.png" type="Texture" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 233.214
+radius = 474.381
 
 [sub_resource type="CircleShape2D" id=2]
 
-[node name="Turret" type="Area2D"]
+[node name="LongRangedSlowTurret" type="Area2D"]
 script = ExtResource( 1 )
 _damage = 3
 _lineColor = Color( 0.803922, 0.117647, 0.117647, 1 )
@@ -25,7 +25,9 @@ shape = SubResource( 1 )
 shape = SubResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-z_index = 5
+position = Vector2( -1, 1 )
+scale = Vector2( 0.5, 0.5 )
+z_index = 4
 texture = ExtResource( 2 )
 
 [connection signal="body_entered" from="." to="." method="OnBodyEntered"]
