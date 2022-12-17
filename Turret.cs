@@ -13,6 +13,8 @@ public class Turret : Area2D
 	private List<Enemy> _enemies = new List<Enemy>();
 	private bool _isReadyToShoot = true;
 	private Timer _shootingCooldownTimer;
+	private Player _container;
+
 	
 	public override void _Process(float del)
 	{
@@ -25,6 +27,15 @@ public class Turret : Area2D
 	public override void _Ready()
 	{
 		_shootingCooldownTimer = GetNode<Timer>("ShootingCooldown");
+		_container = GetParent() as Player;
+
+		if (_container != null)
+		{
+			GD.Print("Container is player");
+		} else 
+		{
+			GD.Print("No container");
+		}
 	}
 	
 	private void OnBodyEntered(object body)
@@ -43,15 +54,13 @@ public class Turret : Area2D
 		var enemy = body as Enemy;
 		if (enemy != null)
 		{
-			GD.Print("Enemy Exited!");
 			_enemies.Remove(enemy);
-			GD.Print($"{_enemies.Count} enemies left");
 		}	
 	}
 	
 	private void Shoot()
 	{
-		if (_enemies.Any() == false) return;
+		if (_enemies.Any() == false || _container == null) return;
 		_isReadyToShoot = false;
 		_shootingCooldownTimer.Start(_shootingCooldown);
 		var line = new PlayerLine();
@@ -82,6 +91,27 @@ public class Turret : Area2D
 	private void ShootingCooldownTimeout()
 	{
 		_isReadyToShoot = true;
+	}
+	
+	private void AssignContainer(Player container)
+	{
+		
+		GetParent().CallDeferred("remove_child", this);
+		container.CallDeferred("add_child", this);
+		Position = Vector2.Zero;
+		_container = container;
+	}
+
+	public void OnPlayerEntered(object body)
+	{
+		if (_container != null) return;
+
+		var container = body as Player;
+
+		if (container != null)
+		{
+			AssignContainer(container);
+		}
 	}
 }
 

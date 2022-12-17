@@ -20,7 +20,7 @@ public class Player : KinematicBody2D
 		GlobalRotation = Mathf.Atan2(lookVector.y, lookVector.x);
 		if (Input.IsActionPressed("move") && GlobalPosition.DistanceTo(mousePos) > FLOAT_EPSILON)
 		{
-			MoveAndSlide(lookVector.Normalized() * _speed);
+			var colInfo = MoveAndCollide(lookVector.Normalized() * _speed * delta);
 		}
 	}
 

@@ -20,6 +20,8 @@ shape = SubResource( 1 )
 
 [node name="Turret" parent="." instance=ExtResource( 3 )]
 _shootingCooldown = 0.1
+_damage = 1
+_lineColor = Color( 0.658824, 0.215686, 0.215686, 1 )
 
 [node name="PlayerHealth" type="Node" parent="."]
 script = ExtResource( 4 )
