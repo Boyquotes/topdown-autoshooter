@@ -4,8 +4,8 @@ using System;
 public class PlayerCamera : Camera2D
 {
     [Export] private float _maxZoom = 5.0f;
-    [Export] private float _minZoom = .5f;
-    [Export] private float _zoomFactor = 0.1f;
+    [Export] private float _minZoom = 1f;
+    [Export] private float _zoomFactor = 1f;
     [Export] private float _zoomDuration = 0.2f;
 //var _zoom_level := 1.0 setget _set_zoom_level
 
